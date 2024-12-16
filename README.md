@@ -149,4 +149,4 @@ Please make sure to include tests for your changes.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://choosealicense.com/licenses/mit/) © [Peter Pasmik]
