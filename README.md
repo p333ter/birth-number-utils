@@ -1,5 +1,11 @@
 ﻿# @ppasmik/birth-number-utils
 
+[![npm version](https://img.shields.io/npm/v/@ppasmik/birth-number-utils?style=flat-square)](https://www.npmjs.com/package/@ppasmik/birth-number-utils)
+[![NPM license](https://img.shields.io/npm/l/@ppasmik/birth-number-utils?style=flat-square)](https://www.npmjs.com/package/@ppasmik/birth-number-utils)
+[![npm downloads](https://img.shields.io/npm/dm/@ppasmik/birth-number-utils?style=flat-square)](https://www.npmjs.com/package/@ppasmik/birth-number-utils)
+[![Coverage Status](https://img.shields.io/coveralls/github/p333ter/birth-number-utils?style=flat-square)](https://coveralls.io/github/p333ter/birth-number-utils)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/p333ter/birth-number-utils/publish.yml?style=flat-square)](https://github.com/p333ter/birth-number-utils/actions)
+
 A TypeScript/JavaScript library for generating, validating, and parsing Czech and Slovak birth numbers (rodné číslo).
 
 ## Installation
