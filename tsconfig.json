@@ -1,0 +1,21 @@
+﻿{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "esnext",
+    "lib": ["es2019", "dom"],
+    "declaration": true,
+    "declarationDir": "types",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "noEmit": true
+  },
+  "include": ["src/**/*", "rollup.config.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}

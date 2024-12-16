@@ -1,0 +1,21 @@
+﻿# Development files
+coverage/
+example/
+src/__tests__/
+jest.config.js
+rollup.config.js
+tsconfig.json
+.github/
+.gitignore
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx

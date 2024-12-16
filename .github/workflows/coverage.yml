@@ -1,0 +1,17 @@
+﻿# .github/workflows/coverage.yml
+name: Coverage
+on: [push, pull_request]
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.18.0'
+      - run: npm ci
+      - run: npm test
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
