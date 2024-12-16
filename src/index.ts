@@ -1,4 +1,6 @@
-﻿export * from './generators';
-export * from './types';
-export * from './utils/dates';
-export * from './validators';
+﻿export { BirthNumber, rodnecislo } from './model/BirthNumber';
+export {
+    generateCzechBirthNumber,
+    generateSlovakBirthNumber
+} from './generators';
+export { isValidBirthNumber, parseBirthNumber } from './validators';

@@ -1,7 +1,7 @@
 ﻿import { generateCzechBirthNumber } from '../generators/czech';
 import {
-    isValidBirthNumber,
-} from '../validators/birthNumber';
+  isValidBirthNumber,
+} from '../validators';
 
 describe('generateCzechBirthNumber', () => {
   it('generates valid male birth number', () => {

@@ -1,1 +1,1 @@
-﻿export * from './birthNumber';
+﻿export * from './birthNumberValidator';

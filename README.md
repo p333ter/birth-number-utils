@@ -139,6 +139,37 @@ console.log('Parse Result:', invalidParse); // false
 
 ---
 
+### Advanced Usage with BirthNumber class
+
+For more complex operations, you can use the `BirthNumber` class or `rodnecislo` factory function:
+
+```typescript
+import { rodnecislo, BirthNumber } from '@ppasmik/birth-number-utils';
+
+// Using factory function
+const rc = rodnecislo('900720/3117');
+
+// Or using class directly
+const bn = new BirthNumber('900720/3117');
+
+// Available methods
+rc.isMale(); // true/false
+rc.isFemale(); // false/true
+rc.year(); // returns year (e.g., 1990)
+rc.month(); // returns zero-based month (0-11)
+rc.day(); // returns day of month (1-31)
+rc.birthDate(); // returns Date object
+rc.birthDateAsString(); // returns date in DD.MM.YYYY format
+rc.isValid(); // true if valid and not in future
+rc.isPossible(); // true if valid (even if in future)
+rc.isAdult(); // checks if age >= 18
+rc.isAdult(21); // checks if age >= custom value
+rc.age(); // returns current age
+rc.error(); // returns error message or null
+```
+
+---
+
 ## Contributing
 
 We welcome contributions to enhance this library. If you find a bug or have an idea for improvement, feel free to open an issue or submit a pull request.

@@ -1,8 +1,7 @@
 ﻿import {
   isValidBirthNumber,
-  parseBirthNumber,
-  parseCharToNumber,
-} from '../validators/birthNumber';
+  parseBirthNumber
+} from '../validators';
 
 describe('isValidBirthNumber', () => {
   it('returns false for birth number with invalid format', () => {
@@ -56,34 +55,66 @@ describe('Birth Number Validation and Parsing', () => {
     });
 
     it('parses valid male birth number', () => {
+      const birthDate = new Date(1990, 6, 20);
       const result = parseBirthNumber('9007203117'); // Platné číslo
-      expect(result).toEqual({
-        birthDate: new Date(1990, 6, 20), // Upozornenie: Mesiace sú indexované od 0
-        gender: 'MALE',
-      });
+      expect(result).not.toBe(false);
+      if (result) {
+        expect(result.birthDate).toEqual(birthDate);
+        expect(result.gender).toBe('MALE');
+        expect(result.age).toBe(
+          new Date().getFullYear() -
+            1990 -
+            (new Date().getMonth() < 6 ||
+            (new Date().getMonth() === 6 && new Date().getDate() < 20)
+              ? 1
+              : 0)
+        );
+        expect(result.isAdult).toBe(true);
+        expect(result.isMale).toBe(true);
+        expect(result.isFemale).toBe(false);
+        expect(result.birthDateAsString).toBe('20.7.1990');
+        expect(result.error).toBe(null);
+      }
     });
 
     it('parses valid female birth number', () => {
+      const birthDate = new Date(1990, 6, 20);
       const result = parseBirthNumber('9057203111'); // Platné číslo pre ženu
-      expect(result).toEqual({
-        birthDate: new Date(1990, 6, 20), // Upozornenie: Mesiace sú indexované od 0
-        gender: 'FEMALE',
-      });
+      expect(result).not.toBe(false);
+      if (result) {
+        expect(result.birthDate).toEqual(birthDate);
+        expect(result.gender).toBe('FEMALE');
+        expect(result.age).toBe(
+          new Date().getFullYear() -
+            1990 -
+            (new Date().getMonth() < 6 ||
+            (new Date().getMonth() === 6 && new Date().getDate() < 20)
+              ? 1
+              : 0)
+        );
+        expect(result.isAdult).toBe(true);
+        expect(result.isMale).toBe(false);
+        expect(result.isFemale).toBe(true);
+        expect(result.birthDateAsString).toBe('20.7.1990');
+        expect(result.error).toBe(null);
+      }
     });
-  });
-});
 
-describe('parseCharToNumber', () => {
-  it('parses character to number from the given position correctly', () => {
-    expect(parseCharToNumber('12345', 2)).toBe(345); // Zvyšok od indexu 2 je '345', čo je číslo 345.
-  });
-
-  it('parses the last character to number correctly', () => {
-    expect(parseCharToNumber('12345', -1)).toBe(5); // Posledný znak je '5'.
-  });
-
-  it('returns NaN for invalid positions', () => {
-    expect(parseCharToNumber('12345', 10)).toBe(NaN); // Pozícia mimo rozsahu.
-    expect(parseCharToNumber('12345', -10)).toBe(NaN); // Negatívna pozícia mimo rozsahu.
+    // Nový test pre overenie validity dátumu a veku
+    it('correctly calculates age and validates dates', () => {
+      const result = parseBirthNumber('0001018336'); // 1.1.2000
+      expect(result).not.toBe(false);
+      if (result) {
+        expect(result.age).toBe(
+          new Date().getFullYear() -
+            2000 -
+            (new Date().getMonth() < 0 ||
+            (new Date().getMonth() === 0 && new Date().getDate() < 1)
+              ? 1
+              : 0)
+        );
+        expect(result.isAdult).toBe(result.age >= 18);
+      }
+    });
   });
 });
