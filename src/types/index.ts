@@ -20,3 +20,14 @@ export interface BirthNumberDetails {
   birthDateAsString: string;
   error: string | null;
 }
+
+export interface BirthNumberBase {
+  birthDate: Date;
+  gender: Gender;
+  age: number;
+  isAdult: boolean;
+  isMale: boolean;
+  isFemale: boolean;
+  birthDateAsString: string;
+  error: string | null;
+}

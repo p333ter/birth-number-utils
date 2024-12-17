@@ -68,21 +68,23 @@ const calculateYear = (yy: string, isLongFormat: boolean): number | false => {
 const processMonth = (
   month: number,
   year: number
-): {
-  month: number;
-  gender: Gender;
-  isValid: boolean;
-} => {
+): { month: number; gender: Gender; isValid: boolean } => {
+
+  if (month === 0) return { month, gender: 'MALE', isValid: false };
+
   let gender: Gender = 'MALE';
 
+  // Odstránenie ženského offsetu
   if (month > CONSTANTS.WOMAN_MM_ADDITION) {
     gender = 'FEMALE';
-    month %= CONSTANTS.WOMAN_MM_ADDITION;
+    month -= CONSTANTS.WOMAN_MM_ADDITION;
   }
 
+  // Extra mesiac po roku 2004
   if (month > CONSTANTS.EXTRA_MM_ADDITION) {
     if (year >= CONSTANTS.YEAR2004) {
-      month %= CONSTANTS.EXTRA_MM_ADDITION;
+      month =
+        month % CONSTANTS.EXTRA_MM_ADDITION || CONSTANTS.EXTRA_MM_ADDITION;
     } else {
       return { month, gender, isValid: false };
     }
@@ -114,7 +116,11 @@ export const parseBirthNumber = (
   if (!isValid) return false;
 
   const day = parseInt(dd, 10);
-  const birthDate = dayjs.utc(`${year}-${month}-${day}`, 'YYYY-M-D', true);
+  const birthDate = dayjs.utc(
+    `${year}-${month.toString().padStart(2, '0')}-${day}`,
+    'YYYY-MM-DD',
+    true
+  );
 
   // Validácia dátumu
   if (!birthDate.isValid()) return false;

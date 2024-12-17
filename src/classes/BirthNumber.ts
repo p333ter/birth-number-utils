@@ -28,7 +28,7 @@ export class BirthNumber {
 
   isBorn(): boolean {
     if (!this.parsedValue) return false;
-    return this.parsedValue.age >= 0;
+    return this.parsedValue.birthDate <= new Date();
   }
 
   // Pomocné metódy pre pohlavie
@@ -53,7 +53,7 @@ export class BirthNumber {
 
   // Validačné metódy
   isValid(): boolean {
-    return this.parsedValue !== false;
+    return this.parsedValue !== false && this.isBorn();
   }
 
   isPossible(): boolean {

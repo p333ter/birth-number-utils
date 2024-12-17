@@ -1,2 +1,1 @@
-﻿export * from './czech';
-export * from './slovak';
+﻿export * from './generateBirthNumber';
