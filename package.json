@@ -1,6 +1,6 @@
 {
   "name": "@ppasmik/birth-number-utils",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "description": "A TypeScript/JavaScript library for generating, validating, and parsing Czech and Slovak birth numbers (rodné číslo).",
   "author": "Peter Pasmik",
   "license": "MIT",
