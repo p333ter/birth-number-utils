@@ -1,6 +1,6 @@
 ﻿import { generateCzechBirthNumber } from '../generators/czech';
 import {
-  isValidBirthNumber,
+  isValidBirthNumber
 } from '../validators';
 
 describe('generateCzechBirthNumber', () => {

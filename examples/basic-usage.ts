@@ -1,12 +1,12 @@
 ﻿/* eslint-disable no-console */
 import {
-    generateCzechBirthNumber,
-    generateSlovakBirthNumber,
+  generateCzechBirthNumber,
+  generateSlovakBirthNumber,
 } from '../src/generators';
 import {
-    isValidBirthNumber,
-    parseBirthNumber,
-} from '../src/validators/birthNumber';
+  isValidBirthNumber,
+  parseBirthNumber,
+} from '../src/validators';
 
 // Example 1: Generate a birth number for a male (Czech Republic)
 const czechMaleBirthNumber = generateCzechBirthNumber({ gender: 'MALE' });

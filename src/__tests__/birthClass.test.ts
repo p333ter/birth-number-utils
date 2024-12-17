@@ -1,5 +1,5 @@
-﻿import { generateCzechBirthNumber } from '../generators/czech';
-import { BirthNumber, rodnecislo } from '../model';
+﻿import { BirthNumber, rodnecislo } from '../classes';
+import { generateCzechBirthNumber } from '../generators/czech';
 
 describe('BirthNumber Class', () => {
   describe('Valid Birth Numbers', () => {
@@ -11,8 +11,8 @@ describe('BirthNumber Class', () => {
       expect(rc.day()).toBe(20);
       expect(rc.isMale()).toBe(true);
       expect(rc.isFemale()).toBe(false);
-      expect(rc.birthDate()).toEqual(new Date(1990, 6, 20));
-      expect(rc.birthDateAsString()).toBe('20.7.1990');
+      expect(rc.birthDate()).toEqual(new Date(Date.UTC(1990, 6, 20)));
+      expect(rc.birthDateAsString()).toBe('20.07.1990');
       expect(rc.isValid()).toBe(true);
       expect(rc.isPossible()).toBe(true);
       expect(rc.isAdult()).toBe(true);
@@ -28,8 +28,8 @@ describe('BirthNumber Class', () => {
       expect(rc.day()).toBe(20);
       expect(rc.isMale()).toBe(false);
       expect(rc.isFemale()).toBe(true);
-      expect(rc.birthDate()).toEqual(new Date(1990, 6, 20));
-      expect(rc.birthDateAsString()).toBe('20.7.1990');
+      expect(rc.birthDate()).toEqual(new Date(Date.UTC(1990, 6, 20)));
+      expect(rc.birthDateAsString()).toBe('20.07.1990');
       expect(rc.isValid()).toBe(true);
       expect(rc.isPossible()).toBe(true);
       expect(rc.isAdult()).toBe(true);
@@ -58,7 +58,7 @@ describe('BirthNumber Class', () => {
       expect(rc.isPossible()).toBe(false);
       expect(rc.isAdult()).toBe(false);
       expect(rc.age()).toBe(null);
-      expect(rc.error()).toBe('Invalid birth number');
+      expect(rc.error()).toBe('Invalid birth number format');
     });
 
     it('handles invalid modulo', () => {
@@ -109,7 +109,7 @@ describe('BirthNumber Class', () => {
     it('handles leap years correctly', () => {
       const leapYear = rodnecislo('0002295689'); // 29.2.2000
       expect(leapYear.isValid()).toBe(true);
-      expect(leapYear.birthDateAsString()).toBe('29.2.2000');
+      expect(leapYear.birthDateAsString()).toBe('29.02.2000');
     });
 
     it('handles month edge cases', () => {
@@ -130,6 +130,17 @@ describe('BirthNumber Class', () => {
         fromFactory.birthDateAsString()
       );
       expect(fromConstructor.isValid()).toBe(fromFactory.isValid());
+    });
+  });
+
+  describe('Future Birth Numbers', () => {
+    it('validates future birth numbers correctly', () => {
+      const future = rodnecislo('4012170954'); // 17.12.2040
+
+      expect(future.isValid()).toBe(true); // formálne správne
+      expect(future.isPossible()).toBe(true); // formálne správne
+      expect(future.isBorn()).toBe(false); // ešte nenarodený
+      expect(future.age()).toBeLessThan(0); // záporný vek
     });
   });
 });

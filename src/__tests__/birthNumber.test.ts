@@ -55,7 +55,7 @@ describe('Birth Number Validation and Parsing', () => {
     });
 
     it('parses valid male birth number', () => {
-      const birthDate = new Date(1990, 6, 20);
+      const birthDate = new Date(Date.UTC(1990, 6, 20));
       const result = parseBirthNumber('9007203117'); // Platné číslo
       expect(result).not.toBe(false);
       if (result) {
@@ -72,13 +72,13 @@ describe('Birth Number Validation and Parsing', () => {
         expect(result.isAdult).toBe(true);
         expect(result.isMale).toBe(true);
         expect(result.isFemale).toBe(false);
-        expect(result.birthDateAsString).toBe('20.7.1990');
+        expect(result.birthDateAsString).toBe('20.07.1990');
         expect(result.error).toBe(null);
       }
     });
 
     it('parses valid female birth number', () => {
-      const birthDate = new Date(1990, 6, 20);
+      const birthDate = new Date(Date.UTC(1990, 6, 20));
       const result = parseBirthNumber('9057203111'); // Platné číslo pre ženu
       expect(result).not.toBe(false);
       if (result) {
@@ -95,7 +95,7 @@ describe('Birth Number Validation and Parsing', () => {
         expect(result.isAdult).toBe(true);
         expect(result.isMale).toBe(false);
         expect(result.isFemale).toBe(true);
-        expect(result.birthDateAsString).toBe('20.7.1990');
+        expect(result.birthDateAsString).toBe('20.07.1990');
         expect(result.error).toBe(null);
       }
     });

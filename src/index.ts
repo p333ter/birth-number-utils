@@ -1,4 +1,4 @@
-﻿export { BirthNumber, rodnecislo } from './model/BirthNumber';
+﻿export { BirthNumber, rodnecislo } from './classes/BirthNumber';
 export {
     generateCzechBirthNumber,
     generateSlovakBirthNumber

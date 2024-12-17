@@ -1,5 +1,5 @@
-﻿import { BirthNumberDetails } from "../types";
-import { parseBirthNumber, sanitizeBirthNumber } from "../validators";
+﻿import { BirthNumberDetails } from '../types';
+import { parseBirthNumber, sanitizeBirthNumber } from '../validators';
 
 export class BirthNumber {
   private readonly rawValue: string;
@@ -26,6 +26,11 @@ export class BirthNumber {
     return this.parsedValue.birthDate.getDate();
   }
 
+  isBorn(): boolean {
+    if (!this.parsedValue) return false;
+    return this.parsedValue.age >= 0;
+  }
+
   // Pomocné metódy pre pohlavie
   isMale(): boolean {
     return this.parsedValue ? this.parsedValue.isMale : false;
@@ -48,7 +53,7 @@ export class BirthNumber {
 
   // Validačné metódy
   isValid(): boolean {
-    return this.parsedValue !== false && this.parsedValue.age >= 0;
+    return this.parsedValue !== false;
   }
 
   isPossible(): boolean {
@@ -68,7 +73,8 @@ export class BirthNumber {
 
   // Getter pre error
   error(): string | null {
-    if (!this.parsedValue) return 'Invalid birth number';
+    if (!this.parsedValue) return 'Invalid birth number format';
+    if (!this.isBorn()) return 'Birth date is in future';
     return this.parsedValue.error;
   }
 }

@@ -1,6 +1,12 @@
-﻿import { BirthNumberDetails, Gender } from "../types";
+﻿import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import { BirthNumberDetails, Gender } from '../types';
 
-export const sanitizeBirthNumber = (input: string): string => input.replace(/\//g, '');
+dayjs.extend(utc);
+
+
+export const sanitizeBirthNumber = (input: string): string =>
+  input.replace(/\//g, '');
 
 const CONSTANTS = {
   MONTH_OFFSET: 1,
@@ -21,22 +27,9 @@ const CONSTANTS = {
 const RODNECISLO_RE = /^(\d\d)(\d\d)(\d\d)\/?(\d\d\d\d?)$/;
 
 // Pomocné funkcie
-const calculateAge = (birthDate: Date): number => {
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
 
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-
-  return age;
-};
-
-const formatDate = (date: Date): string => {
-  return `${date.getDate()}.${
-    date.getMonth() + CONSTANTS.MONTH_OFFSET
-  }.${date.getFullYear()}`;
+const formatDate = (date: dayjs.Dayjs): string => {
+  return date.format('DD.MM.YYYY');
 };
 
 const validateModulo = (
@@ -121,26 +114,20 @@ export const parseBirthNumber = (
   if (!isValid) return false;
 
   const day = parseInt(dd, 10);
-  const birthDate = new Date(year, month - CONSTANTS.MONTH_OFFSET, day);
+  const birthDate = dayjs.utc(`${year}-${month}-${day}`, 'YYYY-M-D', true);
 
   // Validácia dátumu
-  if (
-    birthDate.getFullYear() !== year ||
-    birthDate.getMonth() !== month - CONSTANTS.MONTH_OFFSET ||
-    birthDate.getDate() !== day
-  ) {
-    return false;
-  }
+  if (!birthDate.isValid()) return false;
 
-  const age = calculateAge(birthDate);
+  const age = dayjs().diff(birthDate, 'year');
 
-  // Kontrola validity veku
-  if (age < CONSTANTS.AGE_WHEN_BORN) {
-    return false;
-  }
+  // Commented out due to the fact that the age of the person is not relevant for the validation
+  // if (age < CONSTANTS.AGE_WHEN_BORN) {
+  //   return false;
+  // }
 
   return {
-    birthDate,
+    birthDate: birthDate.toDate(),
     gender,
     age,
     isAdult: age >= CONSTANTS.DEFAULT_ADULTHOOD,
