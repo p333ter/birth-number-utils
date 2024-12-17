@@ -1,8 +1,13 @@
 ﻿import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(customParseFormat);
 
 export interface BirthNumberOptions {
   gender?: 'MALE' | 'FEMALE';
-  birthDate?: Date;
+  birthDate?: Date | string;
 }
 
 export const generateBirthNumber = (
@@ -12,15 +17,15 @@ export const generateBirthNumber = (
     ? dayjs(options.birthDate)
     : dayjs().subtract(Math.floor(Math.random() * 72 + 18), 'years');
 
-  let month = birthDayjs.month() + 1;
+    const year = birthDayjs.format('YY');
+    const day = birthDayjs.format('DD');
+    let month = birthDayjs.month() + 1;
+
   if (options.gender === 'FEMALE') {
     month += 50;
   }
 
-  const firstPart =
-    birthDayjs.format('YY') +
-    month.toString().padStart(2, '0') +
-    birthDayjs.format('DD');
+  const firstPart = year + month.toString().padStart(2, '0') + day;
 
   let controlPart = Math.floor(Math.random() * 10000)
     .toString()
@@ -39,4 +44,8 @@ export const generateBirthNumber = (
 
 // Pre zachovanie spätnej kompatibility môžeme exportovať alias funkcie:
 export const generateCzechBirthNumber = generateBirthNumber;
+
+
+
+
 export const generateSlovakBirthNumber = generateBirthNumber;

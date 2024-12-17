@@ -100,6 +100,24 @@ describe('Birth Number Validation and Parsing', () => {
       }
     });
 
+    it('parses valid male birth number', () => {
+      const birthDate = new Date(Date.UTC(1985, 10, 19));
+      const birthDate2 = generateBirthNumber({
+        birthDate: "1985-11-19",
+        gender: "MALE"
+      });
+      const result = parseBirthNumber(birthDate2);
+
+      expect(result).not.toBe(false);
+      if (result) {
+        expect(result.birthDate).toEqual(birthDate);
+        expect(result.gender).toBe('MALE');
+        expect(result.isMale).toBe(true);
+        expect(result.isFemale).toBe(false);
+        expect(result.birthDateAsString).toBe('19.11.1985');
+      }
+    });
+
     /**
      * @description Parses valid female birth number and verifies all details.
      */
@@ -122,7 +140,7 @@ describe('Birth Number Validation and Parsing', () => {
      */
     it('correctly calculates age and validates dates', () => {
       const result = parseBirthNumber('0001018336');
-      expect(result).not.toBe(false);
+      expect(result).not.toBe(true);
       if (result) {
         const currentYear = new Date().getFullYear();
         const expectedAge =

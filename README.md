@@ -6,7 +6,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/github/p333ter/birth-number-utils?style=flat-square)](https://coveralls.io/github/p333ter/birth-number-utils)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/p333ter/birth-number-utils/publish.yml?style=flat-square)](https://github.com/p333ter/birth-number-utils/actions)
 
-A TypeScript/JavaScript library for generating, validating, and parsing Czech and Slovak birth numbers (rodné číslo).
+A TypeScript/JavaScript library for generating, validating, and parsing 🇨🇿Czech and 🇸🇰Slovak birth numbers (rodné číslo). Built for reliability, performance, and ease of use.
 
 ## Installation
 
@@ -25,12 +25,29 @@ import { generateBirthNumber } from '@ppasmik/birth-number-utils';
 const randomBirthNumber = generateBirthNumber();
 console.log('Random Birth Number:', randomBirthNumber); // e.g., "900720/3117"
 
-// Generate a birth number with specific parameters
-const customBirthNumber = generateBirthNumber({
-  gender: 'FEMALE',
-  birthDate: new Date(1990, 6, 20), // 20th July 1990
+// Generate using string date (recommended)
+const birthNumber1 = generateBirthNumber({
+  gender: 'MALE',
+  birthDate: '1985-11-19', // November 19, 1985 (YYYY-MM-DD format)
 });
-console.log('Custom Birth Number:', customBirthNumber); // e.g., "905720/3111"
+
+// Generate using Date object (note: months are 0-based in JavaScript Date)
+const birthNumber2 = generateBirthNumber({
+  gender: 'FEMALE',
+  birthDate: new Date(1990, 6, 20), // July 20, 1990 (month 6 = July)
+});
+```
+
+⚠️ **Important Note About Dates**:
+
+- When using string dates (recommended): Months are 1-based (1 = January, 12 = December)
+- When using JavaScript Date object: Months are 0-based (0 = January, 11 = December)
+- Examples:
+
+```typescript
+// These create the same birth number (November 19, 1985):
+generateBirthNumber({ birthDate: '1985-11-19' }); // string format
+generateBirthNumber({ birthDate: new Date(1985, 10, 19) }); // Date object (10 = November)
 ```
 
 ### Validate Birth Numbers
